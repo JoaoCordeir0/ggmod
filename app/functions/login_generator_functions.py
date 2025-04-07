@@ -34,11 +34,11 @@ def generate_logins(status_id):
         text = data.decode("latin1")
 
         index = 1
-        array = text.split("56%")
+        array = text.split("5556%")
         array.pop()
         for item in array:
             nomenclature = f"{username}{index:03}"
-            correct_text = item + "56%"
+            correct_text = item + "5556%"
             new_text = correct_text.replace("kriminn001", nomenclature).replace("Ronaldinho12", password)
             index += 1
 
@@ -77,12 +77,12 @@ def show_created_logins():
 
     text = data.decode("latin1")
 
-    split_text = text.split("56%")
+    split_text = text.split("5556%")
 
-    text_start = repr(split_text[0] + '56%')
+    text_start = repr(split_text[0] + '5556%')
     text_start = textwrap.fill(text_start, width=50)
 
-    text_end = repr(split_text[len(split_text)-2] + '56%')
+    text_end = repr(split_text[len(split_text)-2] + '5556%')
     text_end = textwrap.fill(text_end, width=50)
 
     with dpg.window(label="Primeira conta criada"):
