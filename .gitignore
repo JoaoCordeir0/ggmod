@@ -12,3 +12,4 @@ __pycache__
 *.log
 *.spec
 generated_accounts.spt
+generated_logins.spt

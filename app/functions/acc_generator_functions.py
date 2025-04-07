@@ -13,9 +13,9 @@ def generate_accounts(status_id):
         dpg.configure_item("alert_modal-model-not-found", show=True)
         return
     
-    username = str(dpg.get_value("input_user"))
-    password = str(dpg.get_value("input_pass"))
-    amount = int(dpg.get_value("input_amount"))
+    username = str(dpg.get_value("input_user_acc"))
+    password = str(dpg.get_value("input_pass_acc"))
+    amount = int(dpg.get_value("input_amount_acc"))
 
     if not username:
         dpg.configure_item("alert_modal-username-not-found", show=True)
@@ -34,7 +34,9 @@ def generate_accounts(status_id):
         text = data.decode("latin1")
 
         index = 1
-        for item in text.split("0%"):
+        array = text.split("0%")
+        array.pop()
+        for item in array:
             nomenclature = f"{username}{index:03}"
             correct_text = item + "0%"
             new_text = correct_text.replace("jotinha101", nomenclature).replace("Ronaldinho12", password)

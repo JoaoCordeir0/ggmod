@@ -2,8 +2,8 @@ import dearpygui.dearpygui as dpg
 import os
 import textwrap
 
-def show_model_accounts():
-    model_path = "./models/model_acc.spt"
+def show_model(type, separator):
+    model_path = f"./models/model_{type}.spt"
 
     if not os.path.exists(model_path):
         dpg.configure_item("alert_modal-model-not-found", show=True)
@@ -14,7 +14,7 @@ def show_model_accounts():
 
     text = data.decode("latin1")
 
-    text = repr(text.split("0%")[0] + '0%')
+    text = repr(text.split(separator)[0] + separator)
     text = textwrap.fill(text, width=50)
 
     with dpg.window(label="Modelo de contas"):
