@@ -1,0 +1,14 @@
+venv
+build
+files/accounts.*
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+*.db
+*.sqlite3
+*.egg-info
+*.egg
+*.log
+*.spec
+generated_accounts.spt
