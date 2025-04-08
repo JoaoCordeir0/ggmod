@@ -15,7 +15,7 @@ def login_render_gui():
     dpg.add_spacer(height=7)
 
     dpg.add_text("Quantidade de contas:")
-    dpg.add_slider_int(default_value=1, max_value=1000, min_value=1, tag="input_amount_login")
+    dpg.add_drag_int(default_value=1, max_value=999, min_value=1, tag="input_amount_login")
     dpg.add_spacer(height=7)
 
     with dpg.group(horizontal=True):

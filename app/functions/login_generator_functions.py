@@ -6,24 +6,30 @@ import subprocess
 import tempfile
 import platform
 
-def generate_logins(status_id):
-    model_path = "./models/model_login.spt"
-
-    if not os.path.exists(model_path):
-        dpg.configure_item("alert_modal-model-not-found", show=True)
-        return
-    
+def generate_logins(status_id):    
     username = str(dpg.get_value("input_user_login"))
+    len_usernmae = len(username)
     password = str(dpg.get_value("input_pass_login"))
+    len_password = len(password)
     amount = int(dpg.get_value("input_amount_login"))
 
     if not username:
         dpg.configure_item("alert_modal-username-not-found", show=True)
         return
     
+    if len_usernmae < 4 or len_usernmae > 10 or len_usernmae != len_password:
+        dpg.configure_item("alert_modal-len-username-not-found", show=True)
+        return
+    
     if not password:
         dpg.configure_item("alert_modal-password-not-found", show=True)
-        return    
+        return   
+    
+    model_path = f"./models/model_login_{len_usernmae}.spt"
+
+    if not os.path.exists(model_path):
+        dpg.configure_item("alert_modal-model-not-found", show=True)
+        return
     
     with tempfile.TemporaryDirectory() as temp_dir:
         dpg.set_value(status_id, "Criando logins...")
@@ -34,12 +40,10 @@ def generate_logins(status_id):
         text = data.decode("latin1")
 
         index = 1
-        array = text.split("5556%")
-        array.pop()
-        for item in array:
+        for item in text.split("5556%"):
             nomenclature = f"{username}{index:03}"
             correct_text = item + "5556%"
-            new_text = correct_text.replace("kriminn001", nomenclature).replace("Ronaldinho12", password)
+            new_text = correct_text.replace((len_usernmae * "X") + "001", nomenclature).replace(len_usernmae * "Z", password)
             index += 1
 
             new_binary = new_text.encode("latin1")
