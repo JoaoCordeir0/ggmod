@@ -20,10 +20,10 @@ def login_render_gui():
 
     with dpg.group(horizontal=True):
         dpg.add_text("Status:")
-        status_login_id = dpg.add_input_text(width=201, default_value="Não iniciado")
+        dpg.add_input_text(width=201, default_value="Não iniciado", tag="status_login_id")
 
     with dpg.group(horizontal=True):
-        generate_btn = dpg.add_button(label="Criar", width=70, callback=lambda: generate_logins(status_login_id))
+        generate_btn = dpg.add_button(label="Criar", width=70, callback=generate_logins)
         show_acc = dpg.add_button(label="Ver logins criados", width=180, callback=show_created_logins)
 
     dpg.bind_item_theme(generate_btn, btn_green)

@@ -37,3 +37,10 @@ with dpg.window(label="Alerta", pos=(95, 80), modal=True, show=False, tag="alert
     with dpg.group(horizontal=True):
         dpg.add_spacer(width=225)
         dpg.add_button(label="Fechar", callback=lambda: dpg.configure_item("alert_modal-password-not-found", show=False))
+
+with dpg.window(label="Aviso", pos=(95, 80), modal=True, show=False, tag="info_modal-random-username-found", no_title_bar=False, no_move=True):
+    dpg.add_text(tag="info_modal_text_user_and_pass")
+    dpg.add_spacer(height=12)
+    with dpg.group(horizontal=True):
+        dpg.add_spacer(width=225)
+        dpg.add_button(label="Fechar", callback=lambda: dpg.configure_item("info_modal-random-username-found", show=False))

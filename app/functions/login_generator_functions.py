@@ -6,7 +6,7 @@ import subprocess
 import tempfile
 import platform
 
-def generate_logins(status_id):    
+def generate_logins():    
     username = str(dpg.get_value("input_user_login"))
     len_usernmae = len(username)
     password = str(dpg.get_value("input_pass_login"))
@@ -31,7 +31,7 @@ def generate_logins(status_id):
         return
     
     with tempfile.TemporaryDirectory() as temp_dir:
-        dpg.set_value(status_id, "Criando logins...")
+        dpg.set_value("status_login_id", "Criando logins...")
 
         with open(model_path, "rb") as f:
             data = f.read()
@@ -63,7 +63,7 @@ def generate_logins(status_id):
         with open("./generated_logins.spt", "wb") as f:
             f.write(merged_data)
 
-        dpg.set_value(status_id, "Logins criados com sucesso!")
+        dpg.set_value("status_login_id", "Logins criados com sucesso!")
 
         if platform.system() == "Linux":
             subprocess.run(["xdg-open", os.getcwd()])

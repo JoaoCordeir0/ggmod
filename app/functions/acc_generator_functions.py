@@ -5,8 +5,10 @@ import time
 import subprocess
 import tempfile
 import platform
+import random
+import string
 
-def generate_accounts(status_id):
+def generate_accounts():
     model_path = "./models/model_acc.spt"
 
     if not os.path.exists(model_path):
@@ -15,18 +17,23 @@ def generate_accounts(status_id):
     
     username = str(dpg.get_value("input_user_acc"))
     password = str(dpg.get_value("input_pass_acc"))
+    check = dpg.get_value("input_check_acc")
     amount = int(dpg.get_value("input_amount_acc"))
 
-    if not username:
-        dpg.configure_item("alert_modal-username-not-found", show=True)
-        return
-    
-    if not password:
-        dpg.configure_item("alert_modal-password-not-found", show=True)
-        return    
+    if not check:
+        if not username:
+            dpg.configure_item("alert_modal-username-not-found", show=True)
+            return
+        
+        if not password:
+            dpg.configure_item("alert_modal-password-not-found", show=True)
+            return  
+    else:
+        username = generate_random_str()
+        password = "Ronaldinho12"
     
     with tempfile.TemporaryDirectory() as temp_dir:
-        dpg.set_value(status_id, "Criando contas...")
+        dpg.set_value("status_acc_id", "Criando contas...")
 
         with open(model_path, "rb") as f:
             data = f.read()
@@ -58,7 +65,11 @@ def generate_accounts(status_id):
         with open("./generated_accounts.spt", "wb") as f:
             f.write(merged_data)
 
-        dpg.set_value(status_id, "Contas criadas com sucesso!")
+        dpg.set_value("status_acc_id", "Contas criadas com sucesso!")
+
+        if check:
+            dpg.set_value("info_modal_text_user_and_pass", f"User gerado: {username} + 001... \nSenha gerada: {password}")
+            dpg.configure_item("info_modal-random-username-found", show=True)
 
         if platform.system() == "Linux":
             subprocess.run(["xdg-open", os.getcwd()])
@@ -90,3 +101,7 @@ def show_created_accounts():
 
     with dpg.window(label="Última conta criada", pos=(0, 150)):
         dpg.add_text(default_value=text_end)
+
+def generate_random_str(width = 7):
+    chars = string.ascii_letters + string.digits
+    return ''.join(random.choice(chars) for _ in range(width))
