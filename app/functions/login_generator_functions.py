@@ -10,14 +10,13 @@ def generate_logins(status_id):
     username = str(dpg.get_value("input_user_login"))
     len_usernmae = len(username)
     password = str(dpg.get_value("input_pass_login"))
-    len_password = len(password)
     amount = int(dpg.get_value("input_amount_login"))
 
     if not username:
         dpg.configure_item("alert_modal-username-not-found", show=True)
         return
     
-    if len_usernmae < 4 or len_usernmae > 10 or len_usernmae != len_password:
+    if len_usernmae < 4 or len_usernmae > 10:
         dpg.configure_item("alert_modal-len-username-not-found", show=True)
         return
     
@@ -40,7 +39,9 @@ def generate_logins(status_id):
         text = data.decode("latin1")
 
         index = 1
-        for item in text.split("5556%"):
+        array = text.split("5556%")
+        array.pop()
+        for item in array:
             nomenclature = f"{username}{index:03}"
             correct_text = item + "5556%"
             new_text = correct_text.replace((len_usernmae * "X") + "001", nomenclature).replace(len_usernmae * "Z", password)

@@ -34,7 +34,9 @@ def generate_accounts(status_id):
         text = data.decode("latin1")
 
         index = 1
-        for item in text.split("0%"):
+        array = text.split("0%")
+        array.pop()
+        for item in array:
             nomenclature = f"{username}{index:03}"
             correct_text = item + "0%"
             new_text = correct_text.replace("jotinha101", nomenclature).replace("Ronaldinho12", password)
